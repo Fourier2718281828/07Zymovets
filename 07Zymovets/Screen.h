@@ -1,91 +1,88 @@
 #pragma once
-template <size_t height = 30, size_t width = 120>
+#include <iostream>
+using std::cout;
+using std::endl;
+
 class Screen 
 {
-	// Однойменні сталі та несталі методи
-	inline const Screen& home() const; // Перенести курсор на початок екрана
+public:
+	Screen(const size_t height = 1, const size_t width = 10);
+	Screen(const char*, const size_t height = 30, const size_t width = 120);
+	~Screen();
+	inline const Screen& home() const;
 	inline Screen& home();
-	inline const Screen& move() const; // Змістити курсор на один символ праворуч
+	inline const Screen& move() const;
 	inline Screen& move();
-	inline const Screen& back() const; // Змістити курсор на один символ ліворуч
+	inline const Screen& back() const;
 	inline Screen& back();
-	inline const Screen& show() const; // Показати вміст екрана
+	inline const Screen& show() const;
 	inline Screen& show();
-	inline const Screen& move(const size_t, const size_t) const; // Перенести курсор у задану позицію
+	inline const Screen& move(const size_t, const size_t) const;
 	inline Screen& move(const size_t, const size_t);
-	inline const Screen& clear() const; // Очистити екран
+	inline const Screen& clear() const;
 	inline Screen& clear();
-	inline const Screen& showCurrent() const; // Показати символ, перед яким
-	inline Screen& showCurrent();			  // міститься курсор
-	inline char get() const; // Селектор
+	inline const Screen& showCurrent() const;
+	inline Screen& showCurrent();
+	inline char get() const;
 	inline char get();
-	inline const Screen& set(const char) const; // Модифікатор
+	inline const Screen& set(const char) const;
 	inline Screen& set(char);
 private:
-	static const size_t maxHeight; // Максимальна висота екрана
-	static const size_t maxWidth; // Максимальна ширина екрана
-	static const char _filler; // Наповнювач
+	static const size_t maxHeight;
+	static const size_t maxWidth;
+	static const char _filler; 
 	static const char thick_delim;
 	static const char thin_delim;
-	size_t _height; // Фактична висота екрана
-	size_t _width; // Фактична ширина екрана
-	char* _wContent; // Наповнення екрана
-	mutable size_t _cursor; // Місце курсора
-	// Нереалізовані, а тому закриті копіювання:
-	// копіювання екранів не передбачено
+	size_t _height;
+	size_t _width;
+	char* _wContent;
+	mutable size_t _cursor;
 	Screen(const Screen&);
 	inline Screen& operator=(const Screen&);
-	inline void text_delimitor(const char);
+	inline void text_delimitor(const char) const;
 };
 
-template<size_t height, size_t width>
-inline const Screen<height, width>& Screen<height, width>::home() const
+inline const Screen& Screen::home() const
 {
 	_cursor = 0;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline Screen<height, width>& Screen<height, width>::home()
+inline Screen& Screen::home()
 {
 	_cursor = 0;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline const Screen<height, width>& Screen<height, width>::move() const
+inline const Screen& Screen::move() const
 {
 	if (_cursor < _height * _width - 1) 
 		++_cursor;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline Screen<height, width>& Screen<height, width>::move()
+inline Screen& Screen::move()
 {
 	if (_cursor < _height * _width - 1)
 		++_cursor;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline const Screen<height, width>& Screen<height, width>::back() const
+inline const Screen& Screen::back() const
 {
 	if (_cursor > 0)
 		--_cursor;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline Screen<height, width>& Screen<height, width>::back()
+inline Screen& Screen::back()
 {
 	if (_cursor > 0)
 		--_cursor;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline const Screen<height, width>& Screen<height, width>::show() const
+inline const Screen& Screen::show() const
 {
 	size_t cursor = _cursor;
 	text_delimitor(thick_delim);
@@ -93,9 +90,9 @@ inline const Screen<height, width>& Screen<height, width>::show() const
 	text_delimitor(thin_delim);
 	home();
 
-	for (size_t i = 0; i < height; ++i)
+	for (size_t i = 0; i < _height; ++i)
 	{
-		for (size_t j = 0; j < width; ++j)
+		for (size_t j = 0; j < _width; ++j)
 		{
 			cout << get();
 			move();
@@ -109,8 +106,7 @@ inline const Screen<height, width>& Screen<height, width>::show() const
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline Screen<height, width>& Screen<height, width>::show()
+inline Screen& Screen::show()
 {
 	size_t cursor = _cursor;
 	text_delimitor(thick_delim);
@@ -118,9 +114,9 @@ inline Screen<height, width>& Screen<height, width>::show()
 	text_delimitor(thin_delim);
 	home();
 
-	for (size_t i = 0; i < height; ++i)
+	for (size_t i = 0; i < _height; ++i)
 	{
-		for (size_t j = 0; j < width; ++j)
+		for (size_t j = 0; j < _width; ++j)
 		{
 			cout << get(); 
 			move();
@@ -134,22 +130,19 @@ inline Screen<height, width>& Screen<height, width>::show()
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline const Screen<height, width>& Screen<height, width>::move(const size_t, const size_t) const
+inline const Screen& Screen::move(const size_t i, const size_t j) const
 {
 	_cursor = (i < _height && j < _width) ? i * _width + j : 0;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline Screen<height, width>& Screen<height, width>::move(const size_t, const size_t)
+inline Screen& Screen::move(const size_t i, const size_t j)
 {
-	_cursor = (i < _height&& j < _width) ? i * _width + j : 0;
+	_cursor = (i < _height && j < _width) ? i * _width + j : 0;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline const Screen<height, width>& Screen<height, width>::clear() const
+inline const Screen& Screen::clear() const
 {
 	_cursor = 0;
 
@@ -161,8 +154,7 @@ inline const Screen<height, width>& Screen<height, width>::clear() const
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline Screen<height, width>& Screen<height, width>::clear()
+inline Screen& Screen::clear()
 {
 	_cursor = 0;
 
@@ -174,54 +166,62 @@ inline Screen<height, width>& Screen<height, width>::clear()
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline const Screen<height, width>& Screen<height, width>::showCurrent() const
+inline const Screen& Screen::showCurrent() const
 {
 	cout << get() << endl;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline Screen<height, width>& Screen<height, width>::showCurrent()
+inline Screen& Screen::showCurrent()
 {
 	cout << get() << endl;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline char Screen<height, width>::get() const
+inline char Screen::get() const
 {
 	return _wContent[_cursor];
 }
 
-template<size_t height, size_t width>
-inline char Screen<height, width>::get()
+inline char Screen::get()
 {
 	return _wContent[_cursor];
 }
 
-template<size_t height, size_t width>
-inline const Screen<height, width>& Screen<height, width>::set(char c) const
+inline const Screen& Screen::set(char c) const
 {
 	_wContent[_cursor] = c;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline Screen<height, width>& Screen<height, width>::set(char)
+inline Screen& Screen::set(char c)
 {
 	_wContent[_cursor] = c;
 	return *this;
 }
 
-template<size_t height, size_t width>
-inline void Screen<height, width>::text_delimitor(const char c)
+inline Screen& Screen::operator=(const Screen& s)
 {
-	for (int i = 0; i < width; ++i)
+	if (this == &s)
+		return *this;
+
+	_height = s._height;
+	_width = s._width;
+
+	delete _wContent;
+	_wContent = new char[s._height * s._width + 1];
+	strcpy(_wContent, s._wContent);
+	_cursor = 0;
+
+	return *this;
+}
+
+inline void Screen::text_delimitor(const char c) const
+{
+	for (int i = 0; i < _width; ++i)
 	{
 		cout << c;
 	}
 
 	cout << endl;
-	return *this;
 }
