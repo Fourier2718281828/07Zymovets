@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -10,23 +11,23 @@ public:
 	Screen(const char*, const size_t height = 30, const size_t width = 120);
 	~Screen();
 	inline const Screen& home() const;
-	inline Screen& home();
+	inline		 Screen& home();
 	inline const Screen& move() const;
-	inline Screen& move();
+	inline		 Screen& move();
 	inline const Screen& back() const;
-	inline Screen& back();
+	inline		 Screen& back();
 	inline const Screen& show() const;
-	inline Screen& show();
+	inline		 Screen& show();
 	inline const Screen& move(const size_t, const size_t) const;
-	inline Screen& move(const size_t, const size_t);
+	inline		 Screen& move(const size_t, const size_t);
 	inline const Screen& clear() const;
-	inline Screen& clear();
+	inline		 Screen& clear();
 	inline const Screen& showCurrent() const;
-	inline Screen& showCurrent();
+	inline		 Screen& showCurrent();
 	inline char get() const;
 	inline char get();
 	inline const Screen& set(const char) const;
-	inline Screen& set(char);
+	inline		 Screen& set(char);
 private:
 	static const size_t maxHeight;
 	static const size_t maxWidth;
