@@ -3,6 +3,13 @@
 using std::cout;
 using std::endl;
 
+//***************************************************
+//Запрограмувати меню для роботи з текстовим екраном.
+//Developed by Ruslan Zymovets (IPZ, group 1)
+//on March 22
+//Version 1.0
+//***************************************************
+
 /*
 * 1. Why do we need inline const Screen& set(const char) const; ? 
 * 2. Should moving stuff be implemented?

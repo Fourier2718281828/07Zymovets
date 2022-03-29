@@ -4,6 +4,13 @@
 using std::cout;
 using std::endl;
 
+//***************************************************
+//Запрограмувати меню для роботи з текстовим екраном.
+//Developed by Ruslan Zymovets (IPZ, group 1)
+//on March 22
+//Version 1.0
+//***************************************************
+
 class Screen 
 {
 public:

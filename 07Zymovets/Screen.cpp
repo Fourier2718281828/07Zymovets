@@ -1,5 +1,12 @@
 #include "Screen.h"
 
+//***************************************************
+//Запрограмувати меню для роботи з текстовим екраном.
+//Developed by Ruslan Zymovets (IPZ, group 1)
+//on March 22
+//Version 1.0
+//***************************************************
+
 const size_t Screen::maxHeight = 2000;
 const size_t Screen::maxWidth = 2000;
 const char Screen::_filler = '*';
