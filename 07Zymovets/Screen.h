@@ -14,27 +14,32 @@ using std::endl;
 class Screen 
 {
 public:
-	Screen(const size_t height = 1, const size_t width = 10);
-	Screen(const char*, const size_t height = 30, const size_t width = 120);
+	Screen(const size_t height, const size_t width, const char* str = nullptr);
+	Screen(const Screen&) = delete;
+	Screen& operator=(const Screen&) = delete;
 	~Screen();
-	inline const Screen& home() const;
+
+	inline const Screen& home()							  const;
 	inline		 Screen& home();
-	inline const Screen& move() const;
+	inline const Screen& move()							  const;
 	inline		 Screen& move();
-	inline const Screen& back() const;
+	inline const Screen& back()							  const;
 	inline		 Screen& back();
-	inline const Screen& show() const;
+	inline const Screen& show()							  const;
 	inline		 Screen& show();
 	inline const Screen& move(const size_t, const size_t) const;
 	inline		 Screen& move(const size_t, const size_t);
-	inline const Screen& clear() const;
+	inline const Screen& clear()						  const;
 	inline		 Screen& clear();
-	inline const Screen& showCurrent() const;
+	inline const Screen& showCurrent()					  const;
 	inline		 Screen& showCurrent();
-	inline char get() const;
-	inline char get();
-	inline const Screen& set(const char) const;
-	inline		 Screen& set(char);
+	inline const Screen& set(const char)				  const;
+	inline		 Screen& set(const char);
+	inline char  get()									  const;
+	inline char  get();
+	inline size_t height() const { return _height; }
+	inline size_t width () const { return _width ; }
+
 private:
 	static const size_t maxHeight;
 	static const size_t maxWidth;
@@ -45,8 +50,6 @@ private:
 	size_t _width;
 	char* _wContent;
 	mutable size_t _cursor;
-	Screen(const Screen&);
-	inline Screen& operator=(const Screen&);
 	inline void text_delimitor(const char) const;
 };
 
@@ -92,7 +95,7 @@ inline Screen& Screen::back()
 
 inline const Screen& Screen::show() const
 {
-	size_t cursor = _cursor;
+	const size_t cursor = _cursor;
 	text_delimitor(thick_delim);
 	cout << "cursor = " << _cursor << endl;
 	text_delimitor(thin_delim);
@@ -116,7 +119,7 @@ inline const Screen& Screen::show() const
 
 inline Screen& Screen::show()
 {
-	size_t cursor = _cursor;
+	const size_t cursor = _cursor;
 	text_delimitor(thick_delim);
 	cout << "cursor = " << _cursor << endl;
 	text_delimitor(thin_delim);
@@ -176,13 +179,13 @@ inline Screen& Screen::clear()
 
 inline const Screen& Screen::showCurrent() const
 {
-	cout << get() << endl;
+	cout << get();
 	return *this;
 }
 
 inline Screen& Screen::showCurrent()
 {
-	cout << get() << endl;
+	cout << get();
 	return *this;
 }
 
@@ -196,31 +199,15 @@ inline char Screen::get()
 	return _wContent[_cursor];
 }
 
-inline const Screen& Screen::set(char c) const
+inline const Screen& Screen::set(const char c) const
 {
 	_wContent[_cursor] = c;
 	return *this;
 }
 
-inline Screen& Screen::set(char c)
+inline Screen& Screen::set(const char c)
 {
 	_wContent[_cursor] = c;
-	return *this;
-}
-
-inline Screen& Screen::operator=(const Screen& s)
-{
-	if (this == &s)
-		return *this;
-
-	_height = s._height;
-	_width = s._width;
-
-	delete _wContent;
-	_wContent = new char[s._height * s._width + 1];
-	strcpy(_wContent, s._wContent);
-	_cursor = 0;
-
 	return *this;
 }
 
