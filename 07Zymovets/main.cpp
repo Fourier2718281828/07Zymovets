@@ -10,12 +10,7 @@ using std::endl;
 //Version 1.0
 //***************************************************
 
-/*
-* 1. Why do we need inline const Screen& set(const char) const; ? 
-* 2. Should moving stuff be implemented?
-* 3. What about copying constructor and operator= ? Why aren't they implemented in book?
-*/
-int main() 
+int main(void) 
 {
 	{
 		cout << "#1 Creating empty square 5x10 screen :" << endl << endl;
