@@ -42,7 +42,7 @@ Screen::Screen(const size_t h, const size_t w, const char* c)
 
 Screen::~Screen()
 {
-	delete _wContent;
+	delete[] _wContent;
 	_wContent = nullptr;
 	return;
 }

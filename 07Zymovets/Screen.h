@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _SCREEN_H_
+#define _SCREEN_H_
+
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -12,6 +14,9 @@ using std::endl;
 
 class Screen 
 {
+public:
+	using ConstActionPtr = const Screen& (Screen::* const)() const;
+	using ActionPtr = Screen & (Screen::* const)();
 public:
 	Screen(const size_t height, const size_t width, const char* str = nullptr);
 	Screen(const Screen&) = delete;
@@ -219,3 +224,5 @@ inline void Screen::text_delimitor(const char c) const
 
 	cout << endl;
 }
+
+#endif // !_SCREEN_H_

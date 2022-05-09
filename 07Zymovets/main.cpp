@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Screen.h"
+#include "ScreenMenu.h"
 using std::cout;
 using std::endl;
 
@@ -12,7 +13,11 @@ using std::endl;
 
 int main(void) 
 {
-	{
+	Screen s(5, 10);
+	ScreenMenu a(s);
+
+	
+	/*{
 		cout << "#1 Creating empty square 5x10 screen :" << endl << endl;
 		Screen s(5, 10);
 		s.show();
@@ -62,15 +67,6 @@ int main(void)
 		s.show();
 		cout << endl << "Now clear :" << endl << endl;
 		s.clear().show();
-	}
-	/*{
-		const size_t size = 20; 
-		const Screen demo(size, size);
-		for (size_t i = 0; i <= size; i++)
-			demo.set('*').move(i, i);
-		for (size_t i = 0; i <= size; i++)
-			demo.move(size - i - 1, i).set('*');
-		demo.show();
 	}*/
 
 	return 0;

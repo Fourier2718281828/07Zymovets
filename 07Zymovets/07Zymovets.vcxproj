@@ -139,7 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Conditional.h" />
     <ClInclude Include="Screen.h" />
+    <ClInclude Include="ScreenMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
