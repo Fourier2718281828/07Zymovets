@@ -33,7 +33,8 @@ private:
 public:
 	ScreenMenu_temp(screen_ref);
 	~ScreenMenu_temp() = default;
-
+	ScreenMenu_temp(const ScreenMenu_temp&)						= delete;
+	inline ScreenMenu_temp& operator=(const ScreenMenu_temp&)	= delete;
 	//There's no need in duplicating methods too:
 	//inline void doConstAction...
 	inline void doAction(const action, const size_t) const;
@@ -45,6 +46,8 @@ const typename ScreenMenu_temp<IsConst>::action ScreenMenu_temp<IsConst>::menu[]
 	&Screen::home,
 	&Screen::move,
 	&Screen::back,
+	&Screen::clear,
+	&Screen::showCurrent,
 	&Screen::show
 };
 

@@ -2,6 +2,7 @@
 #include "Screen.h"
 #include "ScreenMenu.h"
 using std::cout;
+using std::cin;
 using std::endl;
 
 //***************************************************
@@ -13,10 +14,73 @@ using std::endl;
 
 int main(void) 
 {
-	Screen s(5, 10);
-	ScreenMenu a(s);
+	{
+		size_t n;
+		char action, end;
+		Screen s(5, 10);
+		ScreenMenu a(s);
+		cout << "Testing non-constant screen menu (5x10 screen):" << endl;
+		do
+		{
+			cout << "home  \t\t- 1" << endl;
+			cout << "move  \t\t- 2" << endl;
+			cout << "back  \t\t- 3" << endl;
+			cout << "clear \t\t- 4" << endl;
+			cout << "showCurrent  \t- 5" << endl;
+			cout << "show \t\t- 6" << endl;
 
-	
+			cout << "Enter number of operation or char to set \nthe char on current position of cursor: ";
+			cin >> action;
+			cout << endl;
+			if (action - '0' >= 1 && action - '0' <= 6)
+			{
+				cout << "Enter how many times to repeat the action: ";
+				cin >> n;
+				a.doAction(ScreenMenu::menu[action - '1'], n);
+			}
+			if (action >= 'a')
+			{
+				s.set(action);
+			}
+			cout << endl << "Enter \'y\' to repeat: ";
+			cin >> end;
+		} while (end == 'y');
+		s.show();
+	}
+	cout << "----------------------------------------" << endl;
+	{
+		size_t n;
+		char action, end;
+		const Screen s(5, 10);
+		ConstScreenMenu a(s);
+		cout << "Testing constant screen menu (5x10 screen):" << endl;
+		do
+		{
+			cout << "home  \t\t- 1" << endl;
+			cout << "move  \t\t- 2" << endl;
+			cout << "back  \t\t- 3" << endl;
+			cout << "clear \t\t- 4" << endl;
+			cout << "showCurrent  \t- 5" << endl;
+			cout << "show \t\t- 6" << endl;
+
+			cout << "Enter number of operation or char to set \nthe char on current position of cursor: ";
+			cin >> action;
+			cout << endl;
+			if (action - '0' >= 1 && action - '0' <= 6)
+			{
+				cout << "Enter how many times to repeat the action: ";
+				cin >> n;
+				a.doAction(ConstScreenMenu::menu[action - '1'], n);
+			}
+			if (action >= 'a')
+			{
+				s.set(action);
+			}
+			cout << endl << "Enter \'y\' to repeat: ";
+			cin >> end;
+		} while (end == 'y');
+		s.show();
+	}
 	/*{
 		cout << "#1 Creating empty square 5x10 screen :" << endl << endl;
 		Screen s(5, 10);
